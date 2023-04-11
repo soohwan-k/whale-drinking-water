@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "184801812069",
+    "project_id": "whaledrinkingwater",
+    "storage_bucket": "whaledrinkingwater.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184801812069:android:0d56a9c7737260c343b08c",
+        "android_client_info": {
+          "package_name": "org.tech.town.whaledrinkingwater"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184801812069-doklqvsavqb0roocg3b7em9d3h8p0k4c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.tech.town.whaledrinkingwater",
+            "certificate_hash": "d39728d8ae7d53f887f3460ef9b8d90374e6060e"
+          }
+        },
+        {
+          "client_id": "184801812069-60l2h1jvopcqkdhetp3gn5vpvfcd3rof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD790hY7FD9AnQGUFQB8wj7N_fT5yqTEhU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184801812069-60l2h1jvopcqkdhetp3gn5vpvfcd3rof.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
