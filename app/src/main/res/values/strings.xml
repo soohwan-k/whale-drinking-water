@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Whale Drinking Water</string>
 
+    <!-- main -->
+    <string name="main_today">오늘 섭취량</string>
+    <string name="main_today_intake">오늘의 물 섭취량을 입력해 주세요!</string>
+    <string name="ex_intake">100</string>
+    <string name="ex_intake_unit">ml</string>
+    <string name="main_mypage">마이페이지</string>
+
     <!-- login & signup -->
     <string name="login_id">아이디</string>
     <string name="login_password">비밀번호</string>
@@ -8,4 +15,8 @@
     <string name="login_find_password">비밀번호 찾기</string>
     <string name="login_signup">회원가입</string>
     <string name="signup_name">이름</string>
+
+    <!-- button -->
+    <string name="positive_btn">확인</string>
+    <string name="negative_btn">취소</string>
 </resources>
