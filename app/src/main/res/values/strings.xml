@@ -19,4 +19,5 @@
     <!-- button -->
     <string name="positive_btn">확인</string>
     <string name="negative_btn">취소</string>
+    <string name="initial_intake_ml">0</string>
 </resources>
