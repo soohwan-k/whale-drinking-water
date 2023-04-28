@@ -54,5 +54,9 @@ dependencies {
     //google login
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
 
+    //floating action button
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:26.1.0'
+
 
 }

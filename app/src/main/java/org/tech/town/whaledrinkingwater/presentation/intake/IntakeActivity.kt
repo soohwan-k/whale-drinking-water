@@ -1,8 +1,12 @@
 package org.tech.town.whaledrinkingwater.presentation.intake
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -19,6 +23,7 @@ import org.tech.town.whaledrinkingwater.DBKey.Companion.USERS
 import org.tech.town.whaledrinkingwater.R
 import org.tech.town.whaledrinkingwater.databinding.ActivityIntakeBinding
 import org.tech.town.whaledrinkingwater.databinding.DialogHomeBinding
+import org.tech.town.whaledrinkingwater.presentation.award.AwardActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -28,6 +33,12 @@ class IntakeActivity : AppCompatActivity() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var binding: ActivityIntakeBinding
     private lateinit var userDB: DatabaseReference
+    private var isFabClicked = false
+
+    private val rotateOpenAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.fab_rotate_open_animation) }
+    private val rotateCloseAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.fab_rotate_close_animation) }
+    private val fromBottomAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.fab_from_bottom_animation) }
+    private val toBottomAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.fab_to_bottom_animation) }
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -41,6 +52,7 @@ class IntakeActivity : AppCompatActivity() {
 
         initView()
         initIntakeButton()
+        initFabClickEvent()
     }
 
 
@@ -134,6 +146,40 @@ class IntakeActivity : AppCompatActivity() {
             finish()
         }
         return auth.currentUser?.uid.orEmpty()
+    }
+
+    private fun initFabClickEvent() {
+        with(binding) {
+            intakeFab.setOnClickListener { onMainFabClicked() }
+            awardsFab.setOnClickListener {
+                startActivity(Intent(this@IntakeActivity, AwardActivity::class.java))
+            }
+        }
+    }
+
+    private fun onMainFabClicked() {
+        setVisibility()
+        setAnimation()
+
+        isFabClicked = !isFabClicked
+    }
+
+    private fun setVisibility() {
+        val visibility = if (!isFabClicked) View.VISIBLE else View.INVISIBLE
+
+        with(binding) {
+            awardsFab.visibility = visibility
+        }
+    }
+
+    private fun setAnimation() {
+        val rotateAnimation = if (!isFabClicked) rotateOpenAnimation else rotateCloseAnimation
+        val animation = if (!isFabClicked) fromBottomAnimation else toBottomAnimation
+
+        with(binding) {
+            intakeFab.startAnimation(rotateAnimation)
+            awardsFab.startAnimation(animation)
+        }
     }
 
 }

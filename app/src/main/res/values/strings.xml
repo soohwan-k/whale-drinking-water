@@ -8,6 +8,13 @@
     <string name="ex_intake_unit">ml</string>
     <string name="main_mypage">마이페이지</string>
 
+    <!-- main fab -->
+    <string name="fab_main">main</string>
+    <string name="fab_intake">intake</string>
+    <string name="fab_log">log</string>
+    <string name="fab_awards">awards</string>
+    <string name="fab_notice">notice</string>
+
     <!-- login & signup -->
     <string name="login_id">아이디</string>
     <string name="login_password">비밀번호</string>
