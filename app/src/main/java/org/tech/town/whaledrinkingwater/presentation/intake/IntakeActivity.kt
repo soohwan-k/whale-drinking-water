@@ -1,5 +1,6 @@
 package org.tech.town.whaledrinkingwater.presentation.intake
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -21,6 +23,7 @@ import org.tech.town.whaledrinkingwater.databinding.ActivityMainBinding
 import org.tech.town.whaledrinkingwater.databinding.DialogHomeBinding
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import kotlin.properties.Delegates
 
 class IntakeActivity : AppCompatActivity() {
 
@@ -58,6 +61,20 @@ class IntakeActivity : AppCompatActivity() {
         })
     }
 
+    private fun saveTotalIntake(ml: String) {
+        var totalIntake: String
+        userDB.child(getCurrentUserId())
+            .child("totalIntake").get().addOnSuccessListener {
+                if (it.value != null) {
+                    totalIntake = it.value.toString()
+                }else{
+                    totalIntake = "0"
+                }
+                userDB.child(getCurrentUserId())
+                    .child("totalIntake")
+                    .setValue(ml.toInt() + totalIntake.toInt())
+            }
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun saveIntake(ml: String) {
@@ -65,6 +82,7 @@ class IntakeActivity : AppCompatActivity() {
             .child("date")
             .child(getTodayDate())
             .setValue(ml)
+
     }
 
 
@@ -96,6 +114,7 @@ class IntakeActivity : AppCompatActivity() {
                     val intake = intakeEditText.text.toString().toInt()
                     val todayIntake = binding.todayIntakeTextView.text.toString().toInt()
                     saveIntake((intake + todayIntake).toString())
+                    saveTotalIntake(intake.toString())
                     initView()
                     dismiss()
                 }
