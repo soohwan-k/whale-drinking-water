@@ -1,9 +1,11 @@
 package org.tech.town.whaledrinkingwater.presentation.intake
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -17,6 +19,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import org.tech.town.whaledrinkingwater.DBKey
+import org.tech.town.whaledrinkingwater.DBKey.Companion.AWARDS
 import org.tech.town.whaledrinkingwater.DBKey.Companion.DATE
 import org.tech.town.whaledrinkingwater.DBKey.Companion.TOTAL_INTAKE
 import org.tech.town.whaledrinkingwater.DBKey.Companion.USERS
@@ -33,8 +37,8 @@ class IntakeActivity : AppCompatActivity() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var binding: ActivityIntakeBinding
     private lateinit var userDB: DatabaseReference
-    private var isFabClicked = false
 
+    private var isFabClicked = false
     private val rotateOpenAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.fab_rotate_open_animation) }
     private val rotateCloseAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.fab_rotate_close_animation) }
     private val fromBottomAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.fab_from_bottom_animation) }
@@ -52,7 +56,9 @@ class IntakeActivity : AppCompatActivity() {
 
         initView()
         initIntakeButton()
+        giveAwards()
         initFabClickEvent()
+
     }
 
 
@@ -66,6 +72,30 @@ class IntakeActivity : AppCompatActivity() {
                     return
                 }
                 binding.todayIntakeTextView.text = snapshot.value.toString()
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun giveAwards() {
+        val currentUserDB = userDB.child(getCurrentUserId()).child(TOTAL_INTAKE)
+        currentUserDB.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.value != null) {
+                    saveAward(DBKey.FIRST_DRINK)
+                    if (snapshot.value.toString().toInt() >= 1000) {
+                        saveAward(DBKey.TOTAL_INTAKE_AWARD1)
+                    }
+                    if (snapshot.value.toString().toInt() >= 10000) {
+                        saveAward(DBKey.TOTAL_INTAKE_AWARD2)
+                    }
+                    if (snapshot.value.toString().toInt() > 100000) {
+                        saveAward(DBKey.TOTAL_INTAKE_AWARD3)
+                    }
+                }
+
             }
 
             override fun onCancelled(error: DatabaseError) {}
@@ -133,7 +163,6 @@ class IntakeActivity : AppCompatActivity() {
         }
     }
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getTodayDate(): String {
         val now = LocalDate.now()
@@ -181,5 +210,14 @@ class IntakeActivity : AppCompatActivity() {
             awardsFab.startAnimation(animation)
         }
     }
+
+    private fun saveAward(award: String) {
+        userDB.child(getCurrentUserId())
+            .child(AWARDS)
+            .child(award).setValue(true)
+    }
+
+
+
 
 }

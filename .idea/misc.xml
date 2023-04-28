@@ -7,17 +7,21 @@
         <entry key="..\:/WhaleDrinkingWater/app/src/main/res/drawable/btn_shape.xml" value="0.367" />
         <entry key="..\:/WhaleDrinkingWater/app/src/main/res/drawable/ic__whale.xml" value="0.367" />
         <entry key="..\:/WhaleDrinkingWater/app/src/main/res/drawable/ic_background.xml" value="0.1955" />
+        <entry key="..\:/WhaleDrinkingWater/app/src/main/res/drawable/ic_fab_awards.xml" value="0.241" />
         <entry key="..\:/WhaleDrinkingWater/app/src/main/res/drawable/ic_intake.xml" value="0.367" />
+        <entry key="..\:/WhaleDrinkingWater/app/src/main/res/drawable/ic_launcher_background.xml" value="0.178" />
         <entry key="..\:/WhaleDrinkingWater/app/src/main/res/drawable/ic_logo.xml" value="0.367" />
         <entry key="..\:/WhaleDrinkingWater/app/src/main/res/drawable/ic_main_background.xml" value="0.367" />
         <entry key="..\:/WhaleDrinkingWater/app/src/main/res/drawable/ic_signup_background.xml" value="0.367" />
         <entry key="..\:/WhaleDrinkingWater/app/src/main/res/drawable/ic_water.xml" value="0.367" />
         <entry key="..\:/WhaleDrinkingWater/app/src/main/res/drawable/underline_shape.xml" value="0.367" />
+        <entry key="..\:/WhaleDrinkingWater/app/src/main/res/layout/activity_award.xml" value="0.25" />
         <entry key="..\:/WhaleDrinkingWater/app/src/main/res/layout/activity_intake.xml" value="0.30885416666666665" />
         <entry key="..\:/WhaleDrinkingWater/app/src/main/res/layout/activity_login.xml" value="0.36614583333333334" />
         <entry key="..\:/WhaleDrinkingWater/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
         <entry key="..\:/WhaleDrinkingWater/app/src/main/res/layout/activity_sign_up.xml" value="0.36614583333333334" />
         <entry key="..\:/WhaleDrinkingWater/app/src/main/res/layout/dialog_home.xml" value="0.36614583333333334" />
+        <entry key="..\:/WhaleDrinkingWater/app/src/main/res/layout/item_award.xml" value="0.18645833333333334" />
         <entry key="..\:/WhaleDrinkingWater/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.367" />
       </map>
     </option>

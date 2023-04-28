@@ -10,6 +10,6 @@ class DBKey {
         const val FIRST_DRINK = "firstDrink"
         const val TOTAL_INTAKE_AWARD1 = "award1"
         const val TOTAL_INTAKE_AWARD2 = "award2"
-        const val TOTAL_INTAKE_AWARD3 = ""
+        const val TOTAL_INTAKE_AWARD3 = "award3"
     }
 }
