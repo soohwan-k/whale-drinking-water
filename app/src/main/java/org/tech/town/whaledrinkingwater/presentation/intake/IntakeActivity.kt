@@ -1,29 +1,27 @@
 package org.tech.town.whaledrinkingwater.presentation.intake
 
-import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import org.tech.town.whaledrinkingwater.DBKey.Companion.DATE
+import org.tech.town.whaledrinkingwater.DBKey.Companion.TOTAL_INTAKE
+import org.tech.town.whaledrinkingwater.DBKey.Companion.USERS
 import org.tech.town.whaledrinkingwater.R
 import org.tech.town.whaledrinkingwater.databinding.ActivityIntakeBinding
-import org.tech.town.whaledrinkingwater.databinding.ActivityMainBinding
 import org.tech.town.whaledrinkingwater.databinding.DialogHomeBinding
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import kotlin.properties.Delegates
+
 
 class IntakeActivity : AppCompatActivity() {
 
@@ -38,7 +36,8 @@ class IntakeActivity : AppCompatActivity() {
         binding = ActivityIntakeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        userDB = Firebase.database.reference.child("Users")
+        userDB = Firebase.database.reference.child(USERS)
+
 
         initView()
         initIntakeButton()
@@ -47,7 +46,7 @@ class IntakeActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initView() {
-        val currentUserDB = userDB.child(getCurrentUserId()).child("date").child(getTodayDate())
+        val currentUserDB = userDB.child(getCurrentUserId()).child(DATE).child(getTodayDate())
         currentUserDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.value == null) {
@@ -64,14 +63,14 @@ class IntakeActivity : AppCompatActivity() {
     private fun saveTotalIntake(ml: String) {
         var totalIntake: String
         userDB.child(getCurrentUserId())
-            .child("totalIntake").get().addOnSuccessListener {
+            .child(TOTAL_INTAKE).get().addOnSuccessListener {
                 if (it.value != null) {
                     totalIntake = it.value.toString()
                 }else{
                     totalIntake = "0"
                 }
                 userDB.child(getCurrentUserId())
-                    .child("totalIntake")
+                    .child(TOTAL_INTAKE)
                     .setValue(ml.toInt() + totalIntake.toInt())
             }
     }
@@ -79,7 +78,7 @@ class IntakeActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun saveIntake(ml: String) {
         userDB.child(getCurrentUserId())
-            .child("date")
+            .child(DATE)
             .child(getTodayDate())
             .setValue(ml)
 
